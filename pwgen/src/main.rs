@@ -3,8 +3,8 @@ use rand::{thread_rng, Rng};
 
 fn main() {
     let mut rng = thread_rng();
-    let password: String= (0..16).map(|_|{
-        let n = rng.gen_range(0..=2);
+    let password: String= (0..28).map(|_|{
+        let n = rng.gen_range(0..=3);
         let c= match n {
             0 => {
                 let c = rng.gen_range('a'..='z') as char;//genere le charactere
@@ -14,9 +14,13 @@ fn main() {
                 let c = rng.gen_range('A'..='Z') as char;
             c // le retourne la majuscule
             }
-            _ => {
+            2 => {
                 let c = rng.gen_range('0'..='9') as char;
                 c
+            }
+            _ => {
+                let specials = "!@#$%&*()-_=+[]?/<>";
+                specials.chars().nth(rng.gen_range(0..specials.len())).unwrap()
             }
         };
         c
