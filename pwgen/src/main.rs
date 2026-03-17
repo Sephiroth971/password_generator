@@ -1,9 +1,14 @@
+mod args;
+
+use args::Args;
+use clap::Parser;
 use rand::{thread_rng, Rng};
 
 
 fn main() {
     let mut rng = thread_rng();
-    let password: String= (0..28).map(|_|{
+    let args = Args::parse();
+    let password: String= (0..args.l).map(|_|{
         let n = rng.gen_range(0..=3);
         let c= match n {
             0 => {
@@ -20,7 +25,7 @@ fn main() {
             }
             _ => {
                 let specials = "!@#$%&*()-_=+[]?/<>";
-                specials.chars().nth(rng.gen_range(0..specials.len())).unwrap()
+                specials.chars().nth(rng.gen_range(0..specials.len())).unwrap() //choix du cararteres dans la liste 
             }
         };
         c
